@@ -12,3 +12,7 @@ Route::get('/home', [HomeController::class, 'index']);
 
 Route::post('question/store', [QuestionController::class, 'store'])
 		->name('question.store');
+
+Route::get('/question/respon', function () {
+    return view('home-question-respon', session('data', []));
+})->name('question.respon');

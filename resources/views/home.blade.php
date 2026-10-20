@@ -51,13 +51,17 @@
         }
 
     </style>
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-style.css') }}">
 </head>
 
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">My Laravel App</a>
+            <a class="navbar-brand" href="#">
+                <img src="{{ asset('assets/images/hero.ico') }}" alt="Logo" height="35">
+                My Laravel App
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -84,7 +88,7 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
-            <h1 class="display-6 mb-2">{{ $username }}</h1>
+            <h1 class="display-6 mb-2 font-custom">{{ $username }}</h1>
             <p class="lead mb-0">{{ $last_login }}</p>
         </div>
     </section>
@@ -164,19 +168,35 @@
                     <div class="card-body">
                         <h5 class="card-title">Form Pertanyaan</h5>
 
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $errors)
+                                <li>{{$errors}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+                        @if (session('info'))
+                        <div class="alert alert-info" mt-3>
+                            {!! session('info') !!}
+                        </div>
+                        @endif
                         <form action="{{ route('question.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama</label>
-                                <input type="text" name="nama" class="form-control">
+                                <input type="text" name="nama" class="form-control" value="{{old('nama')}}">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" name="email" class="form-control">
+                                <input type="text" name="email" class="form-control" value="{{old('email')}}">
                             </div>
                             <div class="mb-3">
                                 <label for="pertanyaan" class="form-label">Pertanyaan</label>
-                                <textarea class="form-control" name="pertanyaan"  rows="4"></textarea>
+                                <textarea class="form-control" name="pertanyaan" rows="4"
+                                    value="{{old('pertanyaan')}}"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Kirim Pertanyaan</button>
                         </form>
