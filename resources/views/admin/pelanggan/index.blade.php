@@ -25,8 +25,7 @@
         </div>
         <div>
             <a href="{{ route('pelanggan.create') }}" class="btn btn-success text-white"><i
-                    class="far fa-question-circle me-1"></i> Tambah
-                Pelanggan</a>
+                    class="far fa-question-circle me-1"></i> Tambah Pelanggan</a>
         </div>
     </div>
 </div>
